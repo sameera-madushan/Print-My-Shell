@@ -54,6 +54,7 @@ optional arguments:
 ## License
 MIT ©[sameera-madushan](https://github.com/sameera-madushan)
 
-### References
-https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md
-http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+## References
+[Payloads All The Things Reverse Shell Cheat Sheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md)
+
+[Pentestmonkey Reverse Shell Cheat Sheet](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
