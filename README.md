@@ -22,7 +22,7 @@ Using this script you can easily generate various types of reverse shells withou
 - Telnet
 - Python
 
-### Git Installation
+## Git Installation
 ```
 # clone the repo
 $ git clone https://github.com/sameera-madushan/Print-My-Shell.git
@@ -31,7 +31,7 @@ $ git clone https://github.com/sameera-madushan/Print-My-Shell.git
 $ cd Print-My-Shell
 ```
 
-### Usage
+## Usage
 
 ```
 usage: shell.py [-h] [-i IPADDR] [-p PORTNUM] [-t TYPE] [-l] [-a]
@@ -47,7 +47,7 @@ optional arguments:
   -a, --all             Generate all the shells
 ```
 
-### Support & Contributions
+## Support & Contributions
 - Please ⭐️ this repository if this project helped you!
 - Contributions of any kind welcome!
 
