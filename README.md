@@ -52,7 +52,7 @@ optional arguments:
 - Contributions of any kind welcome!
 
 ## License
-MIT ©[sameera-madushan](https://github.com/sameera-madushan)
+SubtitleBOX is made with ♥ by @__sa_miya__ and it is released under the MIT license.
 
 ## References
 [Payloads All The Things Reverse Shell Cheat Sheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md)
