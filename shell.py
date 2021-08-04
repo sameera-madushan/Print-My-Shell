@@ -11,14 +11,13 @@ banner = r'''
 
 '''
 
-print(banner)
-
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--ip", type=str, help="IP address", dest='ipaddr')
 parser.add_argument("-p", "--port", type=int, help="Port number", dest='portnum')
 parser.add_argument("-t", "--type", type=str, help="Type of the reverse shell to generate", dest='type')
 parser.add_argument("-l", "--list", action="store_true", help="List all available shell types", dest='list')
 parser.add_argument("-a", "--all", action="store_true", help="Generate all the shells", dest='all')
+parser.add_argument("-s", "--shellonly", action="store_true", help="Disables all output other than the shell", dest="shellonly")
 
 # got this from here https://stackoverflow.com/a/47440202
 args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
@@ -63,6 +62,8 @@ shell_dict = {
 
 }
 
+if not args.shellonly:
+    print(banner)
 
 if args.ipaddr or args.portnum != None:
     ip = args.ipaddr
@@ -72,7 +73,8 @@ else:
     port = 1234
 
 if args.type: 
-    print('\n' + "[>]" " " + args.type + " " + "reverse shell" + " " + "[<]")
+    if not args.shellonly:
+        print('\n' + "[>]" " " + args.type + " " + "reverse shell" + " " + "[<]")
     for k,v in shell_dict.items():
         for i in v:
             if k == args.type:
@@ -85,7 +87,8 @@ if args.list:
         print(k.capitalize())
 
 if args.all:
-    print('\n' + "[>] Generated All Shells [<]")
+    if not args.shellonly:
+        print('\n' + "[>] Generated All Shells [<]")
     for k,v in shell_dict.items():
         for i in v:
             x = base64.b64decode(i).decode('utf-8')
