@@ -34,7 +34,7 @@ $ cd Print-My-Shell
 ## Usage
 
 ```
-usage: shell.py [-h] [-i IPADDR] [-p PORTNUM] [-t TYPE] [-l] [-a]
+usage: shell.py [-h] [-i IPADDR] [-p PORTNUM] [-t TYPE] [-l] [-a] [-s]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -45,6 +45,7 @@ optional arguments:
   -t TYPE, --type TYPE  Type of the reverse shell to generate
   -l, --list            List all available shell types
   -a, --all             Generate all the shells
+  -s, --shellonly       Disables all output other than the first shell of given type
 ```
 
 ## Support & Contributions
