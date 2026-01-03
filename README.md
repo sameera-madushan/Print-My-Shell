@@ -1,12 +1,11 @@
-## ⚠️ Project Status: Archived
-This repository is now **archived** and is **no longer actively maintained**.
+# ⚠️ *Project Status: Archived*
+*This repository is now **archived** and is **no longer actively maintained**.*
 
-This project started as a small personal automation script I built to generate reverse shells while playing CTF challenges. Although it’s no longer maintained, it remains available as a reference.
+*This project started as a small personal automation script I built to generate reverse shells while playing CTF challenges. Although it’s no longer maintained, it remains available as a reference.*
 
-It’s great to see ideas from this project inspire other community tools such as **[Shellerator](https://github.com/ShutdownRepo/shellerator)**.
+*It’s great to see ideas from this project inspire other community tools such as **[Shellerator](https://github.com/ShutdownRepo/shellerator)**.*
 
-
-Thank you to everyone who starred, forked, and supported this project ❤️
+*Thank you to everyone who starred, forked, and supported this project ❤️*
 
 
 # Print-My-Shell
