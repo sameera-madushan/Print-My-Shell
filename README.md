@@ -1,3 +1,14 @@
+## ⚠️ Project Status: Archived
+This repository is now **archived** and is **no longer actively maintained**.
+
+This project started as a small personal automation script I built to generate reverse shells while playing CTF challenges. Although it’s no longer maintained, it remains available as a reference.
+
+It’s great to see ideas from this project inspire other community tools such as **[Shellerator](https://github.com/ShutdownRepo/shellerator)**.
+
+
+Thank you to everyone who starred, forked, and supported this project ❤️
+
+
 # Print-My-Shell
 
 "Print My Shell" is a python script, wrote to automate the process of generating various reverse shells based on [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md) and [Pentestmonkey](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet) reverse shell cheat sheets.
@@ -46,15 +57,6 @@ optional arguments:
   -l, --list            List all available shell types
   -a, --all             Generate all the shells
 ```
-
-## Support & Contributions
-- Please ⭐️ this repository if this project helped you!
-- Contributions of any kind welcome!
-
-<a href="https://www.buymeacoffee.com/sameeramadushan" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
-
-## License
-Print My Shell is made with ♥ by [@_\_sa_miya__](https://twitter.com/__sa_miya__) and it is released under the MIT license.
 
 ## References
 [Payloads All The Things Reverse Shell Cheat Sheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md)
